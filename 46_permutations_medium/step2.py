@@ -19,13 +19,17 @@ class Solution:
         # and create an array by inserting head into each sub_permutation
         sub_permutations: list[list[int]] = self.permute(tail)
         for sub_permutation in sub_permutations:
-            all_insertions: list[list[int]] = self.all_insertions(sub_permutation, head)
+            all_insertions: list[list[int]] = self.generate_all_inserted_arrays(
+                sub_permutation, head
+            )
             all_permutations.extend(all_insertions)
         return all_permutations
 
-    def all_insertions(self, nums: list[int], elem: int) -> list[list[int]]:
+    def generate_all_inserted_arrays(
+        self, nums: list[int], elem: int
+    ) -> list[list[int]]:
         """
-        all_insertions returns all combinations of arrays obtained by inserting elem into nums.
+        generate_all_inserted_arrays returns all combinations of arrays obtained by inserting elem into nums.
         """
         if not nums:
             return [[elem]]
