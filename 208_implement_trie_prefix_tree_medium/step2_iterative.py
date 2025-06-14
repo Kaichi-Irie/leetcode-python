@@ -7,27 +7,33 @@
 
 # %%
 # @lc code=start
+from collections import defaultdict
+
+
+# TrieNode has char:str, children: dict[str, TrieNode], and is_final_char
+class TrieNode:
+    def __init__(self):
+        self.children = defaultdict(TrieNode)
+        self.is_final_char = False
+
+
+# Trie has root TrieNode
 class Trie:
     def __init__(self):
-        self.char = ""
-        self.children: dict[str, Trie] = {}
-        self.is_final_char = False
+        self.root = TrieNode()
 
     def insert(self, word: str) -> None:
         if not word:
             return
 
-        node: Trie = self
+        node = self.root
         for char in word:
-            if char not in node.children:
-                node.children[char] = Trie()
-                node.children[char].char = char
             node = node.children[char]
         node.is_final_char = True
         return
 
     def search(self, word: str) -> bool:
-        final_node = self._find_node_with(word)
+        final_node: TrieNode = self._find_node_with(word)
         if final_node is None:
             return False
         elif not final_node.is_final_char:
@@ -39,15 +45,13 @@ class Trie:
         final_node = self._find_node_with(prefix)
         return final_node is not None
 
-    def _find_node_with(self, prefix: str) -> "Trie":
+    def _find_node_with(self, prefix: str) -> TrieNode:
         if not prefix:
-            return self
+            return self.root
 
-        node: Trie = self
-        for i, char in enumerate(prefix):
-            if not node:
-                return None
-            elif char not in node.children:
+        node = self.root
+        for char in prefix:
+            if char not in node.children:
                 return None
             node = node.children[char]
         return node

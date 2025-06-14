@@ -6,12 +6,12 @@
 
 
 # @lc code=start
+from collections import defaultdict
 
 
 class Trie:
     def __init__(self):
-        self.char = ""
-        self.children: dict[str, Trie] = {}  # character -> Trie Tree
+        self.children = defaultdict(Trie)
         self.is_final_char = False
 
     # TC: O(len(word))
@@ -20,11 +20,7 @@ class Trie:
         if not word:
             self.is_final_char = True
             return
-
         first_char, trailing_chars = word[0], word[1:]
-        if first_char not in self.children:
-            self.children[first_char] = Trie()
-            self.children[first_char].char = first_char
         child_node: Trie = self.children[first_char]
         child_node.insert(trailing_chars)
 

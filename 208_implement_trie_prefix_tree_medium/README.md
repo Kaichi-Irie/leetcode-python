@@ -32,6 +32,7 @@ prefix tree（トライ木）を実装する問題。
     - `prefix`の文字列が存在しない場合は`None`を返す。
 - `search`メソッドは、`_find_node_with`を使って、単語の終端であるかを確認する。
 - `startsWith`メソッドは、`_find_node_with`を使って、接頭辞が存在するかを確認する。
+- `children = defaultdict(Trie)`を使って、`children`の初期化やキーの存在確認を簡潔にする。
 
 - `head`, `tail`の変数名を`first_char`, `trailing_chars`に変更。
 
@@ -42,7 +43,8 @@ prefix tree（トライ木）を実装する問題。
 - 時間計算量：$O(n)$
 - 空間計算量：$O(1)$
     - 再帰関数を使わずに、`children`を辿るループで実装する。
-
+- `TrieNode`クラスを作成し、`Trie`のノードを表現する。
+    - `char: str`, `children: dict[str, TrieNode]`, `is_final_char: bool`のフィールドを持つ。
 # 次に解く問題の予告
 - [Subsets - LeetCode](https://leetcode.com/problems/subsets/)
 - [Is Subsequence - LeetCode](https://leetcode.com/problems/is-subsequence/description/)
