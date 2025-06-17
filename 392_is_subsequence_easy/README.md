@@ -35,14 +35,6 @@ two pointersを使って、`s`と`t`の文字を順に比較していきます�
 
 
 
-## step3
-
-# 別解・模範解答
-
-- 時間計算量：`O(len(nums))`
-- 空間計算量：`O(len(nums))`
-
-
 # 次に解く問題の予告
 - [ ] [Evaluate Division - LeetCode](https://leetcode.com/problems/evaluate-division/description/)
 - [ ] [Subsets - LeetCode](https://leetcode.com/problems/subsets/)
