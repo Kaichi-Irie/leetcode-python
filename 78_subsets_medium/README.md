@@ -34,4 +34,5 @@ Python
 - 空間計算量：`O(n * 2^n)`
 
 # 次に解く問題の予告
-- [Evaluate Division - LeetCode](https://leetcode.com/problems/evaluate-division/description/)f
+- [Evaluate Division - LeetCode](https://leetcode.com/problems/evaluate-division/description/)
+- [Subsets II - LeetCode](https://leetcode.com/problems/subsets-ii/description/)
