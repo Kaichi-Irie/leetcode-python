@@ -33,7 +33,7 @@ class Trie:
         return
 
     def search(self, word: str) -> bool:
-        final_node: TrieNode = self._find_node_with(word)
+        final_node: TrieNode | None = self._find_node_with(word)
         if final_node is None:
             return False
         elif not final_node.is_final_char:
@@ -45,7 +45,7 @@ class Trie:
         final_node = self._find_node_with(prefix)
         return final_node is not None
 
-    def _find_node_with(self, prefix: str) -> TrieNode:
+    def _find_node_with(self, prefix: str) -> TrieNode | None:
         if not prefix:
             return self.root
 
