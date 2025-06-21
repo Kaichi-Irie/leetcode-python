@@ -16,8 +16,13 @@ Python
 
 これらを各日の株価に基づいて更新していく。
 
+
 - 時間計算量：O(n)
 - 空間計算量：O(n)
+### レビューより
+- `p_current`は`current_price`とすべき
+- `n_days`は`num_days`とすべき
+    -  c.f. [styleguide \| Style guides for Google-originated open-source projects](https://google.github.io/styleguide/pyguide.html#316-naming)
 
 ## step2
 
