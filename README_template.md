@@ -9,12 +9,24 @@ Python
 
 # 自分の解法
 
+## step1
+
+```python
+
+```
+
 - 時間計算量：`O(n)`
 - 空間計算量：`O(n)`
 
 ## step2
 
+```python
+
+```
+
 ## step3
+
+## step4 (FB)
 
 # 別解・模範解答
 
