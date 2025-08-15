@@ -8,11 +8,13 @@
 # %%
 # @lc code=start
 # TrieNode has char:str, children: dict[str, TrieNode], and is_final_char
+from collections import defaultdict
+
+
 class TrieNode:
     def __init__(self):
-        self.char = ""
-        self.children: dict[str, TrieNode] = {}
-        self.is_final_char = False
+        self.children: dict[str, TrieNode] = defaultdict(TrieNode)
+        self.word_ends_here = False
 
 
 # Trie has root TrieNode
@@ -21,43 +23,26 @@ class Trie:
         self.root = TrieNode()
 
     def insert(self, word: str) -> None:
-        if not word:
-            return
-
-        node = self.root
+        node: TrieNode = self.root
         for char in word:
-            if char not in node.children:
-                child_node = TrieNode()
-                child_node.char = char
-                node.children[char] = child_node
             node = node.children[char]
-        node.is_final_char = True
-        return
+        node.word_ends_here = True
 
     def search(self, word: str) -> bool:
-        final_node: TrieNode = self._find_node_with(word)
-        if final_node is None:
-            return False
-        elif not final_node.is_final_char:
-            return False
-        else:
-            return True
+        node: TrieNode = self.root
+        for char in word:
+            if char not in node.children:
+                return False
+            node = node.children[char]
+        return node.word_ends_here
 
     def startsWith(self, prefix: str) -> bool:
-        final_node = self._find_node_with(prefix)
-        return final_node is not None
-
-    def _find_node_with(self, prefix: str) -> TrieNode:
-        if not prefix:
-            return None
-
-        node = self.root
+        node: TrieNode = self.root
         for char in prefix:
             if char not in node.children:
-                return None
+                return False
             node = node.children[char]
-
-        return node
+        return True
 
 
 # %%

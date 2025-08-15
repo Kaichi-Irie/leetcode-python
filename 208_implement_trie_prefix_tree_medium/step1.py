@@ -43,16 +43,6 @@ class Trie:
         child: Trie = self.children[head]
         return child.startsWith(tail)
 
-    # def __str__(self):
-    #     # show the root and children in a hierarchical way
-    #     def _str(t: Trie, level=0):
-    #         result = "  " * level + t.root + "\n"
-    #         for child in t.children.values():
-    #             result += _str(child, level + 1)
-    #         return result
-
-    #     return _str(self)
-
 
 # %%
 
