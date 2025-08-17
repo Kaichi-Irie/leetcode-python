@@ -204,6 +204,53 @@ class Solution:
 
 ## step4 (FB)
 
+- 座標はtupleでまとめてしまうより、`row`, `column`で分けた方が読みやすいという意見をいただきました。確かに、二つ、三つ程度の座標を扱う場合は、分けた方が可読性が上がると感じました。
+    - `initial_island`はわかりにくい、ともコメントいただきました
+- DFS/BFSのアルゴリズムで使う`DIRECTION=...`の部分は先にすべてqueueにpushして、popしたときに判定する方法もある。
+-
+-
+### if文の条件分岐について
+```python
+while X:
+    if A and B:
+        Y
+```
+において、Yの処理がある程度長かったら
+
+```python
+while X:
+    if not A:
+        continue
+
+    if not B:
+        continue
+    Y
+```
+と書き換えた方がいい。今回なら
+
+```python
+for row in range(num_rows):
+    for column in range(num_columns):
+        cell = (row, column)
+        if is_island(cell) and cell not in visited_cells:
+            area = calculate_area_bfs(cell, visited_cells)
+            max_area = max(max_area, area)
+```
+は
+
+```python
+for row in range(num_rows):
+    for column in range(num_columns):
+        cell = (row, column)
+        if not is_island(cell):
+            continue
+        if  cell in visited_cells:
+            continue
+        area = calculate_area_bfs(cell, visited_cells)
+        max_area = max(max_area, area)
+```
+と書き換えるとわかりやすい（とのコメントをいただいたし、共感している）。
+
 # 別解・模範解答
 `grid`に対してinplaceな実装をして`visited_cells`を管理すれば空間計算量は`O(1)`になりますが、それは問題の要件依存だと思いました。`step2_inplace.py`ではそのような実装をしています。
 
