@@ -86,8 +86,47 @@ class Solution:
 - 空間計算量：`O(1)`。変数の使用量が`n`の大きさに依存しないためである。
 
 ## step3
-```python
 
+### 反復処理による実装
+```python
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n == 0:
+            return 1
+        if n < 0:
+            return self.myPow(1 / x, -n)
+        power_of_x = x
+        i = 0
+        two_to_i = 1
+        x_to_n = 1.0
+        while two_to_i <= n:
+            if n >> i & 1:
+                x_to_n *= power_of_x
+            i += 1
+            two_to_i *= 2
+            power_of_x = power_of_x * power_of_x
+        return x_to_n
+```
+
+### 再帰関数による実装
+```python
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n == 0:
+            return 1.0
+        if x == 0.0:
+            return 0.0
+        if n == 1:
+            return x
+        if n < 0:
+            n = -n
+            x = 1 / x
+            return self.myPow(x, n)
+
+        half_n = n // 2
+        remainder = n % 2
+
+        return self.myPow(x, half_n) ** 2 * self.myPow(x, remainder)
 ```
 
 ## step4 (FB)
