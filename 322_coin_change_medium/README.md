@@ -56,6 +56,7 @@ class Solution:
 ```python
 class Solution:
     def coinChange(self, coins: list[int], amount: int) -> int:
+        # Number of coins does not exceed amount because minimum value of a coin is one, which means this INFINITY value works as an upper bound of number of coins.
         INFINITY = amount + 1
         min_num_coins = [INFINITY] * (amount + 1)
         min_num_coins[0] = 0
@@ -87,6 +88,7 @@ class Solution:
 ```python
 class Solution:
     def coinChange(self, coins: list[int], amount: int) -> int:
+        # Number of coins does not exceed amount because minimum value of a coin is one, which means this INFINITY value works as an upper bound of number of coins.
         INFINITY = amount + 1
 
         min_num_coins = [INFINITY] * (amount + 1)
@@ -120,6 +122,7 @@ from functools import cache
 
 class Solution:
     def coinChange(self, coins: list[int], amount: int) -> int:
+        # Number of coins does not exceed amount because minimum value of a coin is one, which means this INFINITY value works as an upper bound of number of coins.
         INFINITY = amount + 1
 
         @cache
