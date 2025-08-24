@@ -83,6 +83,32 @@ class Solution:
 - `float("inf")`はIEEE 754で定義された特別な値で、無限大を表す。そのため、近似値でもなく、誤差もない。しかし、配列の各要素の更新の処理で、floatとintの比較や演算が入ることを避ける（type checkが入ると型安全でないとwarningが出る）ため、今回は`amount + 1`を代わりに使用した。
 - `min(Iterable arg)`関数には`default`という引数があり、これは`arg`が空のときに返す値を指定できる。これを指定せずに空リストを`min`に渡すと`ValueError`になる。
 
+## Step3
+```python
+class Solution:
+    def coinChange(self, coins: list[int], amount: int) -> int:
+        INFINITY = amount + 1
+
+        min_num_coins = [INFINITY] * (amount + 1)
+        min_num_coins[0] = 0
+
+        for current_amount in range(1, amount + 1):
+            for coin in coins:
+                if current_amount < coin:
+                    continue
+                min_num_coins[current_amount] = min(
+                    min_num_coins[current_amount], min_num_coins[current_amount - coin] + 1
+                )
+
+        if min_num_coins[amount] == INFINITY:
+            return -1
+        return min_num_coins[amount]
+```
+
+`previous_amount = current_amount - coin`と置いた方が可読性が上がる気がする。
+
+
+
 # 別解・模範解答
 
 ## トップダウンDP (メモ化再帰)
