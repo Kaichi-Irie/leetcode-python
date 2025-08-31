@@ -81,6 +81,27 @@ class Solution:
 
 
 ## step3
+```python
+class Solution:
+    def levelOrder(self, root: TreeNode | None) -> list[list[int]]:
+        if not root:
+            return []
+
+        nodes = [root]
+        level_order_node_vals = []
+        while nodes:
+            node_vals = []
+            next_level_nodes = []
+            for node in nodes:
+                node_vals.append(node.val)
+                if node.left:
+                    next_level_nodes.append(node.left)
+                if node.right:
+                    next_level_nodes.append(node.right)
+            level_order_node_vals.append(node_vals)
+            nodes = next_level_nodes
+        return level_order_node_vals
+```
 
 ## step4 (FB)
 
