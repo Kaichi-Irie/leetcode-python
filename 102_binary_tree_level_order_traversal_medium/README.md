@@ -24,11 +24,11 @@ class Solution:
         def search(node: TreeNode | None, level: int) -> None:
             if not node:
                 return
+            level_to_values[level].append(node.val)
             if node.left:
                 search(node.left, level + 1)
             if node.right:
                 search(node.right, level + 1)
-            level_to_values[level].append(node.val)
 
         search(root, 0)
         num_levels = len(level_to_values)
@@ -37,8 +37,6 @@ class Solution:
             level_to_values_list[level] = values
         return level_to_values_list
 ```
-
-
 
 - ロジックはBFSと同じくらい明確
 - 実運用を見据えると、以下のような使い分けになりそう。よりスケーラブルなのはBFSか？
@@ -59,24 +57,24 @@ class Solution:
     def levelOrder(self, root: TreeNode | None) -> list[list[int]]:
         level_to_values: list[list[int]] = []
 
-        def search(node: TreeNode | None, level: int) -> None:
+        def traverse_tree(node: TreeNode | None, level: int) -> None:
             if not node:
                 return
-            if node.left:
-                search(node.left, level + 1)
-            if node.right:
-                search(node.right, level + 1)
             while len(level_to_values) <= level:
                 level_to_values.append([])
             level_to_values[level].append(node.val)
+            if node.left:
+                traverse_tree(node.left, level + 1)
+            if node.right:
+                traverse_tree(node.right, level + 1)
 
-        search(root, 0)
+        traverse_tree(root, 0)
         return level_to_values
 ```
 
 - Step1では辞書を使っていたが、はじめからリストを用いることで、最後にリストに変換する手間を省いた
-- step1ではpost-order traversalを用いていたが、step2ではpre-order traversalを用いた。
-    - どちらでも動くが、pre-orderの方が「訪れた順に値がリストに入る」という要件に対して、より自然に思える
+- step1、step2ではpre-order traversalを用いた。
+    - post-orderでも動くが、pre-orderの方が「訪れた順に値がリストに入る」という要件に対して、より自然に思える
 
 計算量：ステップ1に同じ
 
@@ -87,7 +85,6 @@ class Solution:
     def levelOrder(self, root: TreeNode | None) -> list[list[int]]:
         if not root:
             return []
-
         nodes = [root]
         level_order_node_vals = []
         while nodes:
