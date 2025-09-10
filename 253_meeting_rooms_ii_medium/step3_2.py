@@ -13,7 +13,6 @@ class Solution:
         if not intervals:
             return 0
         intervals.sort()
-        num_rooms = 0
         start_time, end_time = intervals[0]
         heap = []
         heappush(heap, end_time)
