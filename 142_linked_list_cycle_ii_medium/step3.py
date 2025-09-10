@@ -8,13 +8,11 @@
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
-#         self.val = x
+#         self.val = w
 #         self.next = None
 
 
 class Solution:
-    NOT_FOUND = -1
-
     def detectCycle(self, head: ListNode | None) -> ListNode | None:
         if not head:
             return None
