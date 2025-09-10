@@ -14,6 +14,10 @@ class ListNode:
 
 class Solution:
     def detectCycle(self, head: ListNode | None) -> ListNode | None:
+        """
+        Detect if a cycle exists and if so, where the cycle starts.
+        This uses Floyd's algorithm for efficient space complexity.
+        """
         if not head:
             return None
         slow_pointer = head
