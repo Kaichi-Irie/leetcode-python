@@ -78,6 +78,49 @@ class Solution:
 
 ## step3
 
+`step3_1.py`：一度思いついてしまえばヒープよりも簡単に実装できる
+```python
+class Solution:
+    def minMeetingRooms(self, intervals: list[list[int]]) -> int:
+        time_events = []
+        # END must comes first when time_events is sorted.
+        START = 1
+        END = 0
+        for start_time, end_time in intervals:
+            time_events.append((start_time, START))
+            time_events.append((end_time, END))
+        time_events.sort()
+        num_rooms = 0
+        max_num_rooms = 0
+        for _, event_type in time_events:
+            if event_type == END:
+                num_rooms -= 1
+            else:  # START
+                num_rooms += 1
+            max_num_rooms = max(max_num_rooms, num_rooms)
+        return max_num_rooms
+```
+
+`step3_2.py`：ヒープを用いた解法
+```python
+class Solution:
+    def minMeetingRooms(self, intervals: list[list[int]]) -> int:
+        if not intervals:
+            return 0
+        intervals.sort()
+        start_time, end_time = intervals[0]
+        heap = []
+        heappush(heap, end_time)
+        for start_time, end_time in intervals[1:]:
+            earliest_end_time = heap[0]
+            if start_time < earliest_end_time:
+                heappush(heap, end_time)
+                continue
+            # use the same room after the earliest meeting ends
+            heappushpop(heap, end_time)
+        return len(heap)
+```
+
 ## step4 (FB)
 
 
