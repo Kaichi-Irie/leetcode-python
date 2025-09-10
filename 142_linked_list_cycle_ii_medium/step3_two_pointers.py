@@ -6,10 +6,10 @@
 
 # @lc code=start
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
 
 class Solution:
@@ -18,12 +18,10 @@ class Solution:
         Detect if a cycle exists and if so, where the cycle starts.
         This uses Floyd's algorithm for efficient space complexity.
         """
-        if not head:
-            return None
         slow_pointer = head
         fast_pointer = head
         have_cycle = False
-        while fast_pointer.next and fast_pointer.next.next:
+        while fast_pointer and fast_pointer.next:
             fast_pointer = fast_pointer.next.next
             slow_pointer = slow_pointer.next
             if fast_pointer == slow_pointer:

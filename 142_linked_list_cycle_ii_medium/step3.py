@@ -14,8 +14,6 @@
 
 class Solution:
     def detectCycle(self, head: ListNode | None) -> ListNode | None:
-        if not head:
-            return None
         seen_nodes = set()
         node = head
         while node:
