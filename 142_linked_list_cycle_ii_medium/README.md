@@ -39,9 +39,53 @@ class Solution:
 
 ## step2
 
-
-
 ## step3
+
+`step3.py`
+```python
+class Solution:
+    def detectCycle(self, head: ListNode | None) -> ListNode | None:
+        seen_nodes = set()
+        node = head
+        while node:
+            if node in seen_nodes:
+                return node
+            seen_nodes.add(node)
+            node = node.next
+        return None
+```
+
+`step3_two_pointers.py`
+やはりフロイドのアルゴリズムは読んでいてわかりにくいので、docstringを追加してみた。
+
+```python
+class Solution:
+    def detectCycle(self, head: ListNode | None) -> ListNode | None:
+        """
+        Detect if a cycle exists and if so, where the cycle starts.
+        This uses Floyd's algorithm for efficient space complexity.
+        """
+        slow_pointer = head
+        fast_pointer = head
+        have_cycle = False
+        while fast_pointer and fast_pointer.next:
+            fast_pointer = fast_pointer.next.next
+            slow_pointer = slow_pointer.next
+            if fast_pointer == slow_pointer:
+                have_cycle = True
+                break
+        if not have_cycle:
+            return None
+
+        pointer1 = head
+        pointer2 = fast_pointer
+
+        while pointer1 != pointer2:
+            pointer1 = pointer1.next
+            pointer2 = pointer2.next
+        return pointer1
+```
+
 
 ## step4 (FB)
 
@@ -83,18 +127,10 @@ class Solution:
 
 - ループが`break`されず。正常に終了したかどうかを表す`for ... else`はEffective Pythonではバッドプラクティスとされているため、`exists_cycle`フラグを使用している。
 
-
-
 - 時間計算量：`O(n)`
 - 空間計算量：`O(1)`
 
-# 想定されるフォローアップ質問
-
-## CS 基礎
-
-## システム設計
-
-## その他
-
 # 次に解く問題の予告
-- Permutations
+- [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)
+- [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+- [Unique Paths II](https://leetcode.com/problems/unique-paths-ii/)
