@@ -1,5 +1,5 @@
 # 問題へのリンク
-
+[103. Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
 
 # 言語
 Python
@@ -198,13 +198,3 @@ class Solution:
 - 時間計算量：`O(n)`
 - 空間計算量：`O(n)`
 
-# 想定されるフォローアップ質問
-
-## CS 基礎
-
-## システム設計
-
-## その他
-
-# 次に解く問題の予告
-- Permutations
