@@ -153,6 +153,39 @@ class Solution:
         return [list(deq) for deq in zigzag_node_vals]
 ```
 
+
+`reverse`を使う方法（`step3_3.py`）
+```python
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode | None) -> list[list[int]]:
+        zigzag_level_order_vals: list[list[int]] = []  # deque
+        nodes = [root]
+        next_level_nodes = []
+        level = 0
+
+        while True:
+            zigzag_vals = []
+            for node in nodes:
+                if node is None:
+                    continue
+                zigzag_vals.append(node.val)
+                next_level_nodes.append(node.left)
+                next_level_nodes.append(node.right)
+
+            if not next_level_nodes:
+                return zigzag_level_order_vals
+            # align node vals from right to left
+            if level % 2 == 1:
+                zigzag_vals.reverse()
+            zigzag_level_order_vals.append(zigzag_vals)
+            nodes = next_level_nodes
+            next_level_nodes = []
+            level += 1
+```
+- `deque`を使わずに、普通のリストで値を保持し、`reverse`で並び替える方法
+- levelごとにループを回すので、ネストは深くなるが、どのコードよりもzigzagの処理ががシンプルになる
+
+
 ## step4 (FB)
 
 
@@ -197,4 +230,3 @@ class Solution:
 
 - 時間計算量：`O(n)`
 - 空間計算量：`O(n)`
-
