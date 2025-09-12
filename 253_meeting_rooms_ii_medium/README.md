@@ -122,6 +122,9 @@ class Solution:
 ```
 
 ## step4 (FB)
+- `times`は`os`モジュールにあるので、変数名を変更した方が良い
+    - cf. https://docs.python.org/ja/3.13/library/os.html#os.times
+
 
 
 
