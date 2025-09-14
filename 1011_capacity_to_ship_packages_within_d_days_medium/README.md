@@ -145,6 +145,25 @@ class Solution:
 - 二分探索を自分で書く前に、まずは`bisect`モジュールを使って通るかを見るのが良い。
 - `bisect`モジュールでは`key`引数が使えるので、`can_ship`関数をそのまま渡せる。
 - ソート済みのリストを用意する必要があるが、`range`で用意できる。`bool`の配列ではソートすると`False`が先に来るので、`True`が初めて出現するインデックスを求めることになる。
+- `bisect`に渡せる配列は`SupportsLenAndGetItem`プロトコルを満たしていれば良いので、`__len__`と`__getitem__`を実装したクラスならば良い。
+
+```python
+import bisect
+
+class MyRange:
+    def __init__(self):
+        self.length = 5
+
+    def __len__(self):
+        return self.length
+
+    def __getitem__(self, key: int) -> int:
+        return 2 * key
+
+
+g = MyRange()  # [0, 2, 4, 6, 8]
+bisect.bisect_left(g, 3) # 2
+```
 
 
 # 次に解く問題の予告
