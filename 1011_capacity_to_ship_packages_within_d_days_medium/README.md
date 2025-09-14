@@ -147,14 +147,6 @@ class Solution:
 - ソート済みのリストを用意する必要があるが、`range`で用意できる。`bool`の配列ではソートすると`False`が先に来るので、`True`が初めて出現するインデックスを求めることになる。
 
 
-# 想定されるフォローアップ質問
-
-## CS 基礎
-
-## システム設計
-
-## その他
-
 # 次に解く問題の予告
 - [Unique Paths II](https://leetcode.com/problems/unique-paths-ii/)
 - [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
