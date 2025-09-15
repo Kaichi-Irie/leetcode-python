@@ -100,8 +100,38 @@ class Solution:
 
 # 別解・模範解答
 
-- 時間計算量：`O(n)`
-- 空間計算量：`O(n)`
+
+配るDP：`distribute_dp.py`
+```python
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: list[list[int]]) -> int:
+        OBSTACLE = 1
+        if not obstacleGrid:
+            return 0
+
+        OBSTACLE = 1
+        num_rows = len(obstacleGrid)
+        num_columns = len(obstacleGrid[0])
+        num_paths = [[0] * num_columns for _ in range(num_rows)]
+
+        if obstacleGrid[0][0] == OBSTACLE:
+            return 0
+        num_paths[0][0] = 1
+        for row in range(num_rows):
+            for column in range(num_columns):
+                if obstacleGrid[row][column] == OBSTACLE:
+                    num_paths[row][column] = 0
+                if row < num_rows - 1:
+                    num_paths[row + 1][column] += num_paths[row][column]
+                if column < num_columns - 1:
+                    num_paths[row][column + 1] += num_paths[row][column]
+        return num_paths[-1][-1]
+```
+
+- 時間計算量：`O(m * n)`
+- 空間計算量：`O(m * n)`
+
+本問の場合、1次元DPで配るDPは、アルゴリズムとして不自然な気がする。
 
 # 想定されるフォローアップ質問
 
