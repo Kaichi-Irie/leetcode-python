@@ -56,6 +56,55 @@ class Solution:
 
 ## step3
 
+`step3_bruteforce.py`
+```python
+class Solution:
+    def lengthOfLIS(self, nums: list[int]) -> int:
+        left_max_lengths = [1] * len(nums)
+        for i in range(len(nums)):
+            for j in range(i):
+                if nums[j] < nums[i]:
+                    left_max_lengths[i] = max(
+                        left_max_lengths[i], left_max_lengths[j] + 1
+                    )
+
+        return max(left_max_lengths)
+```
+- こっちはすらすら書ける
+
+
+`step3_binary_search.py`
+```python
+class Solution:
+    def bisect_left(self, nums: list[int], target: int) -> int:
+        if not nums:
+            return 0
+        left = -1
+        right = len(nums)
+        while right - left > 1:
+            mid = (right + left) // 2
+            if target <= nums[mid]:
+                right = mid
+            else:
+                left = mid
+        return right
+
+    def lengthOfLIS(self, nums: list[int]) -> int:
+        if not nums:
+            return 0
+        tails = []
+        for num in nums:
+            index = self.bisect_left(tails, num)
+            if index == len(tails):
+                tails.append(num)
+                continue
+            tails[index] = min(tails[index], num)
+        return len(tails)
+```
+
+- `tails`は常に昇順にソートされているので、`num`が`tails`のどこに入るかを二分探索。これは覚えていないと書けない
+- `left=-1`, `right=len(nums)`から始めると、`mid=-1`や`mid=len(nums)`になるのではないかと不安に思っていたが、`while right - left > 1`の条件でループするので、ループの中では`right - left`は常に2以上になるので、`left < mid < right`が保証される。返り値は`right`なので、`len(nums)`が返ることはある。
+
 ## step4 (FB)
 
 
@@ -117,12 +166,14 @@ class Solution:
 - 空間計算量：`O(n)`
 
 # 想定されるフォローアップ質問
+- もし `bisect_left` ではなく `bisect_right` を使った場合、結果は変わりますか？変わる場合、どのような入力で変わりますか？変わらない場合、その理由は何ですか？
+    - 本問では、`bisect_left` と `bisect_right` のどちらを使用しても結果は変わらない。なぜなら、求めるLISは"strictly increasing"であり、`tails`配列に同じ値が存在することはないからである。しかし、もし問題が"non-decreasing"なLISを求めるものであれば、`bisect_right`を使用することで、同じ値を持つ要素が`tails`に追加される可能性があり、結果が変わることになる。その場合は`bisect_right`を使用することで、同じ値を持つ要素がLISに含まれることを許容することになる。
+- このアルゴリズムではLISの『長さ』しか分かりませんが、実際の部分列そのものを復元するには、どのような変更が必要になりますか？
+    - このアルゴリズムでは、実際にはLISの「長さ」に加えて「末尾の要素」もわかる。そのため、末尾から
 
-## CS 基礎
 
-## システム設計
-
-## その他
 
 # 次に解く問題の予告
-- Permutations
+- [Subarray Sum Equals K - LeetCode](https://leetcode.com/problems/subarray-sum-equals-k/description/)
+- [String to Integer (atoi) - LeetCode](https://leetcode.com/problems/string-to-integer-atoi/description/)
+- [Number of Islands - LeetCode](https://leetcode.com/problems/number-of-islands/description/)
