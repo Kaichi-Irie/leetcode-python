@@ -12,8 +12,8 @@ class Solution:
     def lengthOfLIS(self, nums: list[int]) -> int:
         if not nums:
             return 0
-        subsequence_min_tails = [nums[0]]
-        for num in nums[1:]:
+        subsequence_min_tails = []
+        for num in nums:
             index_to_insert = bisect.bisect_left(subsequence_min_tails, num)
             if index_to_insert == len(subsequence_min_tails):
                 subsequence_min_tails.append(num)
