@@ -1,11 +1,8 @@
 # 問題へのリンク
-
+[300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
 
 # 言語
 Python
-
-# 問題の概要
-
 
 # 自分の解法
 
