@@ -115,7 +115,9 @@ class Solution:
 ```
 
 ## step4 (FB)
-
+- 二分探索の `left`/`right`という変数名を問題に適した名前に変える。これで不変条件がわかりやすくなる。
+    - `left` -> `insufficient_capacity`
+    - `right` -> `sufficient_capacity`
 
 
 # 別解・模範解答
