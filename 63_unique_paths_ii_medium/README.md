@@ -109,12 +109,6 @@ class Solution:
     - 新しいDPの状態として、dp[i][j][k] のような3次元配列を提案する。ここで i は行、j は列、k はその時点での累積コストを表す。dp[i][j][k] には、「コスト k を使ってセル (i, j) に到達する経路の数」を格納する。状態遷移式は、dp[i][j][k + cost[i][j]] = dp[i-1][j][k] + dp[i][j-1][k] のようになる。最終的な答えは、ゴール地点 (R-1, C-1) における、許容総コスト以下のすべての k に対する dp[R-1][C-1][k] の合計になる。
 
 
-## CS 基礎
-
-## システム設計
-
-## その他
-
 # 次に解く問題の予告
 - [Subarray Sum Equals K - LeetCode](https://leetcode.com/problems/subarray-sum-equals-k/description/)
 - [String to Integer (atoi) - LeetCode](https://leetcode.com/problems/string-to-integer-atoi/description/)
