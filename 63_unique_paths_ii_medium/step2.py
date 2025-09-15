@@ -5,11 +5,11 @@
 #
 
 # @lc code=start
-OBSTACLE = 1
 
 
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: list[list[int]]) -> int:
+        OBSTACLE = 1
         if not obstacleGrid:
             return 0
 
