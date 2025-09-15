@@ -104,6 +104,20 @@ class Solution:
 
 - `tails`は常に昇順にソートされているので、`num`が`tails`のどこに入るかを二分探索。これは覚えていないと書けない
 - `left=-1`, `right=len(nums)`から始めると、`mid=-1`や`mid=len(nums)`になるのではないかと不安に思っていたが、`while right - left > 1`の条件でループするので、ループの中では`right - left`は常に2以上になるので、`left < mid < right`が保証される。返り値は`right`なので、`len(nums)`が返ることはある。
+- ちなみに`bisect_right`の実装は
+
+```python
+def bisect_right(nums: list[int], target: int) -> int:
+    left = -1
+    right = len(nums)
+    while right - left > 1:
+        mid = (right + left) // 2
+        if target < nums[mid]:
+            right = mid
+        else:
+            left = mid
+    return right
+```
 
 ## step4 (FB)
 
