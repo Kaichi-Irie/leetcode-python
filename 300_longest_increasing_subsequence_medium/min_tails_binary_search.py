@@ -15,7 +15,7 @@ class Solution:
             if array[-1] < x:
                 return len(array)
             left = -1
-            right = len(array) - 1
+            right = len(array)
             while right - left > 1:
                 mid = (right + left) // 2
                 if array[mid] >= x:
@@ -28,11 +28,11 @@ class Solution:
             return 0
         min_tails = [nums[0]]
         for num in nums[1:]:
-            j = bisect_left(min_tails, num)
-            if j == len(min_tails):
+            index_to_insert = bisect_left(min_tails, num)
+            if index_to_insert == len(min_tails):
                 min_tails.append(num)
             else:
-                min_tails[j] = num
+                min_tails[index_to_insert] = num
         return len(min_tails)
 
 

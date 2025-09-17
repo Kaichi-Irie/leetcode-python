@@ -18,7 +18,7 @@ class Solution:
             if index == len(tails):
                 tails.append(num)
                 continue
-            tails[index] = min(tails[index], num)
+            tails[index] = num
         return len(tails)
 
 

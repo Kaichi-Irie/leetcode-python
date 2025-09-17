@@ -95,7 +95,7 @@ class Solution:
             if index == len(tails):
                 tails.append(num)
                 continue
-            tails[index] = min(tails[index], num)
+            tails[index] = num
         return len(tails)
 ```
 
@@ -118,7 +118,28 @@ def bisect_right(nums: list[int], target: int) -> int:
 
 ## step4 (FB)
 
+- `max_lengths_so_far`は`index_to_max_length`や`max_length_by_index`、`max_length_ending_at_index`などの方が良い
 
+
+```python
+for i in range(len(nums)):
+    for j in range(i):
+        if nums[j] < nums[i]:
+            left_max_lengths[i] = max(
+                left_max_lengths[i], left_max_lengths[j] + 1
+            )
+```
+は
+
+```python
+for i in range(len(nums)):
+    left_max_length[i] = max(
+        [left_max_length[j] + 1 for j in range(i) if nums[j] < nums[i]],
+        default = 1
+        )
+```
+とも書ける。余分にメモリは確保してしまうが、オーダーには影響しない程度。むしろ、二重ループに強弱が出てわかりやすいと感じた。つまり、内部の`j`のループは`i`のためにmaxを取るために回しているもので従属的である、と伝わりやすいと感じた。逆に多重ループが完全に独立している（直積である）ときには、`itertools.product`を使えば良い。
+- `max`の`default`引数は空のイテレータを渡した時の返り値を設定できる。`max([])`をそのまま実行すると、`ValueError: max() iterable argument is empty`が出る。
 
 # 別解・模範解答
 
