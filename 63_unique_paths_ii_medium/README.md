@@ -10,9 +10,6 @@ Python
 
 各マスを順に見ていき、上隣と左隣からの経路数を足し合わせることで、そのマスまでの経路数を求める。障害物があるマスでは経路数を0にすればOK。
 
-
-
-
 ```python
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: list[list[int]]) -> int:
@@ -46,8 +43,6 @@ class Solution:
 - スタート地点にも障害物がある場合があり得ることを考慮し忘れて、一度WAになった。
     - `if obstacleGrid[row][column] == OBSTACLE:...`の前に`if row == 0 and column == 0:...`を置いてしまっていた。
     - このあたりは、コーディング面接ではコードを書く前に口頭で色々と条件を確認しておくと良い。
-    -
-
 
 `m` を行数、`n` を列数とすると、
 - 時間計算量：`O(m * n)`
@@ -91,8 +86,56 @@ class Solution:
 - `num_paths_from_left`と`num_paths_from_top`の計算を三項演算子で簡潔に書いた。
     - `num_paths_in_row[column] if row > 0 else 0`は実は不要で、`num_paths_in_row[column]`だけで良いが、可読性を優先した。
 - `if row == 0 and column == 0:`を`if row == column == 0:`と書いた。
+    - この条件分岐はループ内で0を特別扱いするような感じで、あまり美しくない。
+例えば、以下のようにすれば
+```python
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: list[list[int]]) -> int:
+        if not obstacleGrid:
+            return 0
+        OBSTACLE = 1
+        num_rows = len(obstacleGrid)
+        num_columns = len(obstacleGrid[0])
+        num_paths_in_row = [0] * num_columns
+        num_paths_in_row[0] = 1
+        for row in range(num_rows):
+            for column in range(num_columns):
+                if obstacleGrid[row][column] == OBSTACLE:
+                    num_paths_in_row[column] = 0
+                    continue
+                if column > 0:
+                    num_paths_in_row[column] += num_paths_in_row[column - 1]
+
+        return num_paths_in_row[-1]
+```
+とすれば、`if row == 0 and column == 0:`の条件分岐は不要になってスッキリはするが、`num_paths_from_left`と`num_paths_from_top`として明示的に書く方が、アルゴリズムの意図がわかりやすいと考えた。
 
 ## step3
+```python
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: list[list[int]]) -> int:
+        if not obstacleGrid:
+            return 0
+        OBSTACLE = 1
+        num_rows = len(obstacleGrid)
+        num_columns = len(obstacleGrid[0])
+        num_paths_in_row = [0] * num_columns
+        for row in range(num_rows):
+            for column in range(num_columns):
+                if obstacleGrid[row][column] == OBSTACLE:
+                    num_paths_in_row[column] = 0
+                    continue
+                if row == column == 0:
+                    num_paths_in_row[column] = 1
+                    continue
+                num_paths_from_top = num_paths_in_row[column] if row > 0 else 0
+                num_paths_from_left = num_paths_in_row[column - 1] if column > 0 else 0
+                num_paths_in_row[column] = num_paths_from_top + num_paths_from_left
+
+        return num_paths_in_row[-1]
+```
+
+
 
 ## step4 (FB)
 

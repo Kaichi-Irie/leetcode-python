@@ -12,20 +12,17 @@ class Solution:
         OBSTACLE = 1
         num_rows = len(obstacleGrid)
         num_columns = len(obstacleGrid[0])
-        num_paths = [0] * num_columns
+        num_paths_in_row = [0] * num_columns
+        num_paths_in_row[0] = 1
         for row in range(num_rows):
             for column in range(num_columns):
                 if obstacleGrid[row][column] == OBSTACLE:
-                    num_paths[column] = 0
+                    num_paths_in_row[column] = 0
                     continue
-                if row == column == 0:
-                    num_paths[column] = 1
-                    continue
+                if column > 0:
+                    num_paths_in_row[column] += num_paths_in_row[column - 1]
 
-                num_paths_from_top = num_paths[column] if row > 0 else 0
-                num_paths_from_left = num_paths[column - 1] if column > 0 else 0
-                num_paths[column] = num_paths_from_top + num_paths_from_left
-        return num_paths[-1]
+        return num_paths_in_row[-1]
 
 
 # @lc code=end
