@@ -78,7 +78,8 @@ class Solution:
 
 
 # 別解・模範解答
-ハッシュマップを使う方法。時間計算量を`O(n)`にできる。
+## ハッシュマップを使う方法
+時間計算量を`O(n)`にできる。
 ```python
 from collections import defaultdict
 
@@ -106,6 +107,32 @@ class Solution:
 
 - 時間計算量：`O(1)`
 - 空間計算量：`O(n)`
+
+## `nums`が正の数のみを含む場合（two pointers）
+```python
+class Solution:
+    def subarraySum(self, nums: list[int], k: int) -> int:
+        """
+        Find the subarraySum in O(n) when nums have positive elements.
+        """
+        if not nums:
+            return 0
+        num_subarrays = 0
+        subarray_sum = 0
+        left = 0
+        for right in range(len(nums)):
+            subarray_sum += nums[right]
+            while left < right and subarray_sum > k:
+                subarray_sum -= nums[left]
+                left += 1
+
+            if subarray_sum == k:
+                num_subarrays += 1
+
+        return num_subarrays
+```
+- ただし、`nums`に0が含まれる場合は、結構複雑になる
+
 
 # 想定されるフォローアップ質問
 
