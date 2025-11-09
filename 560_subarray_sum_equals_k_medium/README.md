@@ -73,6 +73,52 @@ class Solution:
 
 ## step3
 
+`step3_1.py` (20 min)
+```python
+from collections import defaultdict
+
+
+class Solution:
+    def subarraySum(self, nums: list[int], k: int) -> int:
+        """
+        Find the number of pairs (i,j) such that sum(nums[i:j]) == k (0<=i<j<=n).
+        This can be found as below:
+        for each j = 1, ..., len(nums), find the number of i (0<=i<j) that satisifes nums[:j] -k == nums[:i].
+        Note that nums[:0] is defined as 0.
+        """
+        num_subarrays = 0
+        # sum(nums[:i]) -> count
+        subarray_sum_count: dict[int, int] = defaultdict(int)
+        sum_to_j = 0
+        # Add sum(nums[:0]) = 0
+        subarray_sum_count[0] = 1
+        for j in range(1, len(nums) + 1):
+            sum_to_j += nums[j - 1]  # sum(nums[:j])
+            count = subarray_sum_count[sum_to_j - k]
+            num_subarrays += count
+            subarray_sum_count[sum_to_j] += 1
+        return num_subarrays
+```
+- `sum_to_j`は`prefix_sum`の方が適切かも
+- `subarray_sum_count` も `prefix_sum_count` の方が適切かも
+
+テストケース
+<!-- subarraySum([1], 1) == 1
+subarraySum([1], 0) == 0
+subarraySum([1, 1, 1], 3) == 1
+subarraySum([1, 1, 1], 2) == 2
+subarraySum([1, -1, 1, -1], 0) == 4 -->
+
+- 単一要素:`nums=[1]`, `k=1` -> `1`、`nums=[1]`, `k=0` -> `0`
+- 同じ要素が複数ある: `nums=[1, 1, 1]`, `k=3` -> `1`、`nums=[1, 1, 1]`, `k=2` -> `2`
+- 標準的なケース: `nums=[1, 2, 3, -3, 3]`, `k=3` -> `4`
+- k=0: `nums=[1, -1, 1, -1]`, `k=0` -> `4`
+- 0を多く含む: `nums=[0, 1, 0]`, `k=1` -> `4`
+    - 足し算では、0が（単位元なので）特殊なケースになることが多い
+    - 掛け算では、1
+- kが負: `nums=[-1, -1, -1]`, `k=-2` -> `2`
+- 空配列: `nums=[]`, `k=0` -> `0`、`nums=[]`, `k=1` -> `0`
+
 ## step4 (FB)
 
 

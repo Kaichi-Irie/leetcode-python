@@ -11,10 +11,8 @@ from collections import defaultdict
 class Solution:
     def subarraySum(self, nums: list[int], k: int) -> int:
         """
-        Find the number of pairs (i,j) such that sum(nums[i:j]) == k (0<=i<j<=n).
-        This can be found as below:
-        for each j = 1, ..., len(nums), find the number of i (0<=i<j) that satisifes nums[:j] -k == nums[:i].
-        Note that nums[:0] is defined as 0.
+        Count subarrays with sum == k using prefix sums:
+        For each prefix S_j, add how many prior prefixes S_i satisfy S_j - S_i = k.
         """
         num_subarrays = 0
         # sum(nums[:i]) -> count
