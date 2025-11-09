@@ -232,3 +232,6 @@ class Solution:
 
 
 # 次に解く問題の予告
+- [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+- [Word Ladder](https://leetcode.com/problems/word-ladder/description/)
+- [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/)
