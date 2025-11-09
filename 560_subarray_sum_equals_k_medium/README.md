@@ -181,12 +181,8 @@ class Solution:
 
 
 # 想定されるフォローアップ質問
-
-## CS 基礎
-
-## システム設計
-
-## その他
+- この実装の最悪空間使用量は？どうすれば実使用メモリを抑えられますか？
+    - `defaultdict`の代わりに`dict.get`を使えば、メモリ使用量を抑えられる可能性がある。
 
 # 次に解く問題の予告
 - [String to Integer (atoi) - LeetCode](https://leetcode.com/problems/string-to-integer-atoi/description/)
