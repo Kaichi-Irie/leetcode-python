@@ -9,7 +9,8 @@ Python
 与えられた整数のリストから、すべての部分集合を生成する問題。
 
 
-# 自分の解法 bit演算を用いて解く
+# 自分の解法
+## step1：ビット全探索
 全ての部分集合は、`nums`の要素数を`n`としたとき、`2^n`通り存在する。各部分集合は、`0`から`2^n - 1`までの整数をビットマスクとして解釈することで生成できる。
 
 - 時間計算量：`O(n * 2^n)`
@@ -48,6 +49,42 @@ Python
 - `subsets(nums[1:])`に`nums[0]`を含める場合と含めない場合の2通りを考えて、全ての部分集合を生成する。
 - 時間計算量：`O(n * 2^n)`
 - 空間計算量：`O(n * 2^n)`
+
+# 別解3. スタックを用いた反復的な方法
+
+- スタックを用いて反復的に部分集合を生成する方法。
+- スタックに途中状態の部分集合と、走査中のインデックスのタプルを格納し、各部分集合に対して要素を含める場合と含めない場合の2通りを考えて、全ての部分集合を生成する。スタックの定義が非直感的で思いつくのが難しいと感じた。
+
+`stack.py`
+```python
+class Solution:
+    def subsets(self, nums: list[int]) -> list[list[int]]:
+        all_subsets = []
+        stack = [([], 0)]
+        while stack:
+            subset, index = stack.pop()
+            if index == len(nums):
+                all_subsets.append(subset[:])
+                continue
+            stack.append((subset, index + 1))
+            stack.append((subset + [nums[index]], index + 1))
+        return all_subsets
+```
+
+# 別解4. `extend`を用いた方法
+- `nums`の各要素`num`に対して、既存の部分集合にその要素を追加した新しい部分集合を生成し、全ての部分集合を構築する方法。イメージは倍々ゲームのように、部分集合の数が倍々に増えていく。最も実装がシンプル。
+
+`double.py`
+```python
+class Solution:
+    def subsets(self, nums: list[int]) -> list[list[int]]:
+        all_subsets = [[]]
+        for num in nums:
+            subsets_containing_num = [subset + [num] for subset in all_subsets]
+            all_subsets.extend(subsets_containing_num)
+        return all_subsets
+```
+
 
 # 次に解く問題の予告
 - [Evaluate Division - LeetCode](https://leetcode.com/problems/evaluate-division/description/)
