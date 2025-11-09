@@ -1,18 +1,11 @@
 # 問題へのリンク
-
+[200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
 
 # 言語
 Python
 
-# 問題の概要
-
-
-# 自分の解法
-
-
-
 ## step1
-
+DFS を用いる解法。
 ```python
 class Solution:
     def numIslands(self, grid: list[list[str]]) -> int:
@@ -56,6 +49,7 @@ class Solution:
         return num_islands
 ```
 
+DFSは、スタックの分だけの空間を使う上、Pythonでは再起呼び出し回数の制限がデフォルトでは1000と小さいので、パフォーマンス上はBFSを用いる方が望ましい。が、DFSの方がコードがシンプルになる場合が多い。
 - 時間計算量：`O(n*m)`
 - 空間計算量：`O(n*m)`
 
@@ -114,6 +108,7 @@ class Solution:
 # 別解・模範解答
 ## BFS を用いる解法
 
+`bfs.py`
 ```python
 from collections import deque
 
@@ -165,6 +160,7 @@ class Solution:
 
 ## Disjoint Set Union (Union-Find) を用いる解法
 
+`dsu.py`
 ```python
 
 class Solution:
@@ -228,14 +224,11 @@ class Solution:
 
 - 時間計算量：`O(n*m*α(k))` （αはアッカーマン関数の逆関数、kはunion/findの呼び出し回数）
 - 空間計算量：`O(n*m)`
-
+- `mydsu.py` は DSU をクラスとして実装した例。`num_disjoint_sets` を逐次管理することで、最後にルートの集合を数える計算を省略できる。
 
 # 想定されるフォローアップ質問
+- Q. もしこのグリッドが非常に巨大で、例えば数テラバイトあり、メモリに一度に収まらない場合はどうしますか？
+    - A. グリッドが2行分ずつメモリに収まると仮定します。各行でDSUと島の数を逐一計算し、前の行と現在の行で接続されている島をマージしていきます。これにより、メモリ使用量を大幅に削減しつつ、正確な島の数を計算できます。
 
-## CS 基礎
-
-## システム設計
-
-## その他
 
 # 次に解く問題の予告
