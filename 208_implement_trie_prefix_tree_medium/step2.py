@@ -25,7 +25,7 @@ class Trie:
         child_node.insert(trailing_chars)
 
     def search(self, word: str) -> bool:
-        final_node: Trie = self._find_prefix_node(word)
+        final_node: Trie | None = self._find_prefix_node(word)
         # word is not found
         if final_node is None:
             return False
@@ -37,12 +37,14 @@ class Trie:
             return True
 
     def startsWith(self, prefix: str) -> bool:
-        final_node: Trie = self._find_prefix_node(prefix)
+        final_node: Trie | None = self._find_prefix_node(prefix)
         return final_node is not None
 
     # TC: O(len(prefix))
     # SC: O(len(prefix))
-    def _find_prefix_node(self, prefix: str) -> "Trie":
+    from typing import Optional
+
+    def _find_prefix_node(self, prefix: str) -> Optional["Trie"]:
         if not prefix:
             return self
         first_char, trailing_chars = prefix[0], prefix[1:]
