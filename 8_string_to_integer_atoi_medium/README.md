@@ -208,4 +208,4 @@ class Solution:
 ## その他
 
 # 次に解く問題の予告
-- Permutations
+- [Number of Islands](https://leetcode.com/problems/number-of-islands/description/)
