@@ -63,37 +63,61 @@ class Solution:
 - 時間計算量：`O(n)`
 - 空間計算量：`O(n)`
 
+Tests
+- standard cases:
+    - `s="  00321a3"` -> 321
+    - `s="  +00321a3"` -> 321
+    - `s="  -00321a3"` -> -321
+- empty:
+    - `s=""` -> 0
+- invalid cases:
+    - `s=" "` -> 0
+    - `s="a"` -> 0
+    - `s="a1"` -> 0
+- whitespaces:
+    - `s="  1"` -> 1
+- signedness:
+    - `s="1"` -> 1
+    - `s="+1"` -> 1
+    - `s="-1"` -> -1
+- leading zeros:
+    - `s="0010"` -> 10
+- rounded cases:
+    - `s="-1_000_000_000_000"` -> -2**31
+    - `s="1_000_000_000_000"` -> 2**31-1
+
 ## step2
 
 ```python
 class Solution:
-    CHAR_TO_DIGIT = {str(i): i for i in range(10)}
     def myAtoi(self, s: str) -> int:
         SPACE = " "
         PLUS = "+"
         MINUS = "-"
         MIN_INT = -(2**31)
         MAX_INT = 2**31 - 1
+
         if not s:
             return 0
         num = 0
 
         # remove leading whitespaces
-        i = 0
-        while i < len(s) and s[i] == SPACE:
-            i += 1
+        index = 0
+        while index < len(s) and s[index] == SPACE:
+            index += 1
         # process sign
         sign = 1
-        if i < len(s) and s[i] == PLUS:
-            i += 1
-        elif i < len(s) and s[i] == MINUS:
-            i += 1
+        if index < len(s) and s[index] == PLUS:
+            index += 1
+        elif index < len(s) and s[index] == MINUS:
             sign = -1
+            index += 1
         # conversion
-        while i < len(s) and s[i] in self.CHAR_TO_DIGIT:
-            digit = self.CHAR_TO_DIGIT[s[i]]
+        while index < len(s) and "0"<=s[index]<="9":
+            digit = ord(s[index]) - ord("0")
             num = num * 10 + digit
-            i += 1
+            index += 1
+
         num = sign * num
         # rounding
         num = min(num, MAX_INT)
@@ -127,7 +151,8 @@ for digit in digits:
 - > `ord(s[pos]) - ord('0')`の代わりに`int(s[pos])`とかも選択肢としてあり。とはいえこれをするんだったら`int(s[index:])`みたいにやっていいじゃんという気持ちにもなるので、この問題的にはint使わない方が空気が読めてそう。
 - `ord`を使う方法もある
 (ref: https://github.com/hayashi-ay/leetcode/pull/69/files)
-- `is_digit`メソッドについて調べる
+    - Pythonでは文字列にも比較演算子が使えるので、`"0" <= s[i] <= "9"`のようにするのが良いかも
+- `is_digit`メソッドはASCIIコード以外にも対応したメソッドなので、今回は使わなくて良い
 
 ## step3
 

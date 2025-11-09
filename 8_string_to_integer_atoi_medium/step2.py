@@ -6,8 +6,6 @@
 
 # @lc code=start
 class Solution:
-    CHAR_TO_DIGIT = {str(i): i for i in range(10)}
-
     def myAtoi(self, s: str) -> int:
         SPACE = " "
         PLUS = "+"
@@ -20,21 +18,22 @@ class Solution:
         num = 0
 
         # remove leading whitespaces
-        i = 0
-        while i < len(s) and s[i] == SPACE:
-            i += 1
+        index = 0
+        while index < len(s) and s[index] == SPACE:
+            index += 1
         # process sign
         sign = 1
-        if i < len(s) and s[i] == PLUS:
-            i += 1
-        elif i < len(s) and s[i] == MINUS:
+        if index < len(s) and s[index] == PLUS:
+            index += 1
+        elif index < len(s) and s[index] == MINUS:
             sign = -1
-            i += 1
+            index += 1
         # conversion
-        while i < len(s) and s[i] in self.CHAR_TO_DIGIT:
-            digit = self.CHAR_TO_DIGIT[s[i]]
+        while index < len(s) and "0"<=s[index]<="9":
+            digit = ord(s[index]) - ord("0")
             num = num * 10 + digit
-            i += 1
+            index += 1
+
         num = sign * num
         # rounding
         num = min(num, MAX_INT)
