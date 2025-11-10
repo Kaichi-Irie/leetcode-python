@@ -103,12 +103,6 @@ class Solution:
 - `subarray_sum_count` も `prefix_sum_count` の方が適切かも
 
 テストケース
-<!-- subarraySum([1], 1) == 1
-subarraySum([1], 0) == 0
-subarraySum([1, 1, 1], 3) == 1
-subarraySum([1, 1, 1], 2) == 2
-subarraySum([1, -1, 1, -1], 0) == 4 -->
-
 - 単一要素:`nums=[1]`, `k=1` -> `1`、`nums=[1]`, `k=0` -> `0`
 - 同じ要素が複数ある: `nums=[1, 1, 1]`, `k=3` -> `1`、`nums=[1, 1, 1]`, `k=2` -> `2`
 - 標準的なケース: `nums=[1, 2, 3, -3, 3]`, `k=3` -> `4`
@@ -118,6 +112,24 @@ subarraySum([1, -1, 1, -1], 0) == 4 -->
     - 掛け算では、1
 - kが負: `nums=[-1, -1, -1]`, `k=-2` -> `2`
 - 空配列: `nums=[]`, `k=0` -> `0`、`nums=[]`, `k=1` -> `0`
+
+
+```python
+from collections import defaultdict
+class Solution:
+    def subarraySum(self, nums: list[int], k: int) -> int:
+        num_subarrays = 0
+        prefix_sum_counts = defaultdict(int)
+        prefix_sum = 0
+        for index in range(len(nums)+1):
+            if index > 0:
+                prefix_sum += nums[index-1]
+            count_end_with_index = prefix_sum_counts[prefix_sum-k]
+            num_subarrays += count_end_with_index
+            prefix_sum_counts[prefix_sum] += 1
+
+        return num_subarrays
+```
 
 ## step4 (FB)
 
