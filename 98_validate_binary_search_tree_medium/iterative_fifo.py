@@ -13,17 +13,19 @@ class TreeNode:
         self.right = right
 
 import math
+from collections import deque
+
 class Solution:
     def isValidBST(self, root: TreeNode|None) -> bool:
-        stack = [(root, -math.inf, math.inf)]
-        while stack:
-            root, lower, upper = stack.pop()
-            if root is None:
+        frontiers = deque([(root, -math.inf, math.inf)])
+        while frontiers:
+            node, lower, upper = frontiers.popleft()
+            if node is None:
                 continue
-            if lower >= root.val or upper <= root.val:
+            if not (lower < node.val < upper):
                 return False
-            stack.append((root.left, lower, root.val))
-            stack.append((root.right, root.val, upper))
+            frontiers.append((node.left, lower, node.val))
+            frontiers.append((node.right, node.val, upper))
         return True
 
 # @lc code=end
