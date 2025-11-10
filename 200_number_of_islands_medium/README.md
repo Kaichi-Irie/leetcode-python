@@ -5,7 +5,7 @@
 Python
 
 ## step1
-DFS を用いる解法。
+再帰関数を用いたDFS を用いる解法。
 ```python
 class Solution:
     def numIslands(self, grid: list[list[str]]) -> int:
@@ -49,7 +49,7 @@ class Solution:
         return num_islands
 ```
 
-DFSは、スタックの分だけの空間を使う上、Pythonでは再起呼び出し回数の制限がデフォルトでは1000と小さいので、パフォーマンス上はBFSを用いる方が望ましい。が、DFSの方がコードがシンプルになる場合が多い。
+再帰関数を用いたDFSは、スタックの分だけの空間を使う上、Pythonでは再起呼び出し回数の制限がデフォルトでは1000と小さいので、パフォーマンス上はBFSを用いる方が望ましい。が、再帰関数を用いたDFSの方がコードがシンプルになる場合が多い。
 - 時間計算量：`O(n*m)`
 - 空間計算量：`O(n*m)`
 
@@ -134,7 +134,7 @@ class Solution:
 ```
 
 ## step4 (FB)
-- `directions` は `((0, 1), (1, 0))` の2方向のみでOK。なぜなら、左上から右下に向かって走査していくので、未訪問の陸地は右か下にしか存在し得ないから。
+- DSUでは`directions` は `((0, 1), (1, 0))` の2方向のみでOK。なぜなら、左上から右下に向かって走査していくので、未訪問の陸地は右か下にしか存在し得ないから。
 - `if row < 0 or row >= num_rows:` のような境界チェックは 「数直線に沿った」条件式が望ましい。例えば `if not (0 <= row < num_rows):` のように書くようにする。
 - `return` は不要。
 
@@ -149,7 +149,7 @@ class Solution:
         num_rows = len(grid)
         num_cols = len(grid[0])
         num_islands = 0
-        directions = ((1, 0), (0, 1))
+        directions = ((1, 0), (0, 1), (0, -1), (-1, 0))
         def traverse(row, col):
             for dr, dc in directions:
                 neighbor_row = row + dr

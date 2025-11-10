@@ -3,7 +3,6 @@
 #
 # [200] Number of Islands
 #
-
 # @lc code=start
 class Solution:
     def numIslands(self, grid: list[list[str]]) -> int:
@@ -14,7 +13,7 @@ class Solution:
         num_rows = len(grid)
         num_cols = len(grid[0])
         num_islands = 0
-        directions = ((1, 0), (0, 1))
+        directions = ((1, 0), (0, 1), (-1, 0), (0, -1))
         def traverse(row, col):
             for dr, dc in directions:
                 neighbor_row = row + dr
