@@ -88,6 +88,26 @@ class Solution:
 
 ## step3
 
+```python
+import math
+class Solution:
+    def isValidBST(self, root: TreeNode|None) -> bool:
+        def is_valid(root, lower_bound, upper_bound) -> bool:
+            if root is None:
+                return True
+            if not (lower_bound < root.val < upper_bound):
+                return False
+            left_validity = is_valid(root.left, lower_bound, root.val)
+            right_validity = is_valid(root.right, root.val, upper_bound)
+            return left_validity and right_validity
+
+        return is_valid(root, -math.inf, math.inf)
+```
+
+- `lower`/`upper`を`lower_bound`/`upper_bound`に変えた
+- 条件式を`not (lower < root.val < upper)`に変えた。この方が読みやすいと思ったため。
+
+
 ## step4 (FB)
 
 
