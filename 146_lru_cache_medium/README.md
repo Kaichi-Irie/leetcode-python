@@ -46,8 +46,9 @@ class LRUCache:
         self.age += 1
 ```
 
-- 時間計算量：`O(n)`
+- 各操作について時間計算量：ならしで`O(1)`
 - 空間計算量：`O(n)`
+
 
 テストケース
 ```python
@@ -72,6 +73,7 @@ class LRUCache:
 これなら、削除や挿入をO(1)で行える。
 put、getのどちらでも、キャッシュの順番を更新する必要があることに注意。
 `add_to_front`と`remove_node`を用いて、ノードの移動を行うと楽。
+ダミーの`head`, `tail`ノードを用いると、境界条件を気にせずに済む。
 
 ```python
 class ListNode:
@@ -132,8 +134,8 @@ class LRUCache:
             self.remove(lru_node)
 ```
 
-- 時間計算量：`O(n)`
-- 空間計算量：`O(n)`
+- 各操作について時間計算量：`O(1)`
+- 空間計算量：`O(capacity)`
 
 テストケース
 ```python
