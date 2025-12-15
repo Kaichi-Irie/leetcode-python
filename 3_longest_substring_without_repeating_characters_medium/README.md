@@ -34,6 +34,8 @@ while char in window_chars:
     left_index += 1
 ```
 
+- Sliding Windowでは、基本的に`[left, right]`の閉区間で、`right`をforループでインクリメントしていくのが王道。バグも生みにくい。
+
 
 - 時間計算量：`O(n)`
 - 空間計算量：`O(1)`
